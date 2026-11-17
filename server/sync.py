@@ -108,24 +108,49 @@ def iso_from(deadline_str, tz_str):
     return "{0}-{1}-{2}T{3}:{4}:{5}{6}".format(*m.groups(), offset)
 
 def parse_ccfddl_yaml(text):
-    """轻量解析 CCFDDL YAML（条目式，字段规整，用正则足够）"""
+    """轻量解析 CCFDDL YAML（条目式，字段规整，用正则足够）。
+
+    兼容两种布局：
+      1) 新版嵌套（ccf-deadlines 实际格式）：
+           - title: ICAPS
+             confs:
+               - year: 2027
+                 link: https://...
+                 timeline:
+                   - abstract_deadline: '2026-12-07 23:59:59'
+                     deadline: '2026-12-14 23:59:59'
+                 timezone: UTC-12
+      2) 旧版扁平：
+           - title: ICAPS 2027
+             year: 2027
+             deadline: '2026-12-14 23:59:59'
+    """
+    def field(block, name):
+        # 允许可选的前导 "- "：顶层 title 为 "- title:"，嵌套年份为 "- year:"
+        m = re.search(r"^\s*(?:-\s+)?%s:\s*[\"']?(.*?)[\"']?\s*$" % re.escape(name), block, re.M)
+        return m.group(1).strip() if m else None
+
     entries = []
-    blocks = re.split(r"\n(?=-\s+title:)", text)
-    for b in blocks:
-        def field(name):
-            m = re.search(r"^\s+%s:\s*[\"']?(.*?)[\"']?\s*$" % re.escape(name), b, re.M)
-            return m.group(1).strip() if m else None
-        title, year = field("title"), field("year")
-        if not title or not year:
+    for top in re.split(r"\n(?=-\s+title:)", text):
+        title = field(top, "title")
+        if not title:
             continue
-        entries.append({
-            "title": title, "year": int(year),
-            "deadline": field("deadline"),
-            "timezone": field("timezone"),
-            "link": field("link"),
-            "date": field("date"),
-            "place": field("place"),
-        })
+        # 新版：confs: 下按年份拆块；旧版：整块即一年
+        confs_pos = re.search(r"^\s*confs:\s*$", top, re.M)
+        blocks = (re.split(r"\n(?=\s+-\s+year:)", top[confs_pos.end():])
+                  if confs_pos else [top])
+        for block in blocks:
+            year = field(block, "year")
+            if not year or not year.isdigit():
+                continue
+            entries.append({
+                "title": title, "year": int(year),
+                "deadline": field(block, "deadline"),
+                "timezone": field(block, "timezone"),
+                "link": field(block, "link"),
+                "date": field(block, "date"),
+                "place": field(block, "place"),
+            })
     return entries
 
 def sync_from_ccfddl(venues, log):

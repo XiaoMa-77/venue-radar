@@ -102,6 +102,32 @@ LLM_MODEL=MiniMax-M2      # 以 MiniMax 开放平台实际模型列表为准
 > ⚠️ CCF 第七版（2026-03）将 IJCAI 降为 B、ICLR 升为 A；学院认定适用版本请与学院确认。
 > IROS 在 CCF 目录中长期为 **C 类**（ICRA 为 B 类），经 EI 收录口径满足 E 等。
 
+## 🧪 测试与验证
+
+项目包含完整的离线自动化测试（网络与 LLM 调用全部 mock，不消耗 token）：
+
+```bash
+pip install -r server/requirements.txt
+bash scripts/verify.sh
+```
+
+一键脚本会依次运行：Python 语法检查、同步引擎单元测试、31 条数据契约校验、Flask 集成测试、
+JS 语法检查、前端逻辑测试（Node 内置 test runner，无需 npm）、JSON 校验。当前 **62 Python + 18 Node = 80 项测试全通过**。
+
+手动分组运行：
+
+```bash
+python -m unittest discover -s tests -p 'test_*.py' -v   # 后端 + 数据 + 集成
+node --test tests/js/*.test.js                           # 前端
+```
+
+CI：`.github/workflows/ci.yml` 在每次 push / PR 到 `main` 时自动跑全套校验；
+`.github/workflows/sync.yml` 每日 09:00（北京时间）自动同步 DDL。
+
+## 📐 设计文档
+
+架构、接口、数据流、数据契约、边界与异常场景、假设与待确认项见 **[DESIGN.md](DESIGN.md)**。
+
 ## 🗃 数据维护
 
 - 手动修订：直接编辑 `data/venues.json`（字段说明见文件内注释风格：`ddl` 各键存 ISO8601 带时区偏移的时间，JS 自动换算北京时间并计算倒计时）
@@ -123,7 +149,18 @@ venue-radar/
 │   ├── sync.py           # 同步引擎：CCFDDL + MiniMax 官网抽取
 │   ├── .env.example      # 密钥配置模板（.env 不入库）
 │   └── requirements.txt
-└── .github/workflows/sync.yml   # 每日自动同步
+├── tests/
+│   ├── _helpers.py       # 测试辅助：按路径加载模块
+│   ├── test_sync.py      # 同步引擎单元测试
+│   ├── test_data.py      # 数据契约校验
+│   ├── test_app.py       # Flask 集成测试
+│   └── js/app.test.js    # 前端逻辑测试（Node test runner）
+├── scripts/
+│   └── verify.sh         # 一键校验脚本
+├── DESIGN.md             # 设计文档
+├── .github/workflows/
+│   ├── sync.yml          # 每日自动同步
+│   └── ci.yml            # push/PR 自动测试
 ```
 
 ## ⚠️ 免责
