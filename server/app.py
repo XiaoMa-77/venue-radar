@@ -79,5 +79,6 @@ def api_sync():
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", "8787"))
-    print("venue-radar serving at http://0.0.0.0:%d  (同步接口 POST /api/sync)" % port)
-    app.run(host="0.0.0.0", port=port, threaded=True)
+    host = os.environ.get("HOST", "127.0.0.1")
+    print("venue-radar serving at http://%s:%d  (同步接口 POST /api/sync)" % (host, port))
+    app.run(host=host, port=port, threaded=True)
