@@ -426,7 +426,7 @@
     if (state.syncApi) return;
     try {
       var r = await fetch("api/venues", { method: "HEAD" });
-      if (r.ok) state.syncApi = "/api/sync";
+      if (r.ok) state.syncApi = new URL("api/sync", location.href).pathname;
     } catch (e) { /* 静态部署，无后端 */ }
   }
 
