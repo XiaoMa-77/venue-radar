@@ -1,0 +1,18 @@
+# 密钥与本地配置（永不入库）
+server/.env
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# IDE / 系统
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# 前端
+node_modules/
