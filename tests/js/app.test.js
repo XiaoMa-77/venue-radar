@@ -70,7 +70,7 @@ function conf(override = {}) {
   return Object.assign({
     id: "test-conf", name: "TEST 2027", full: "Test Conference", type: "conference",
     ccf: "A", school: { level: "C", basis: "CCF-A → C 等" }, indexing: "EI",
-    relevance: { rating: "高", tags: ["VLN", "GNN"] },
+    relevance: { rating: "高", tags: ["AI", "ML"] },
     ddl: {}, tz: "AoE（UTC−12）", confidence: "official", req: "双盲评审",
     links: { "官网": "https://example.org" }, verifiedAt: "2026-11-17",
   }, override);
