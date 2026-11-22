@@ -4,7 +4,7 @@
     "subtitle": "AI · 智能规划 · ML · 路径规划",
     "profile": "所在学院 · 学术型硕士",
     "generatedAt": "2026-11-17T22:55:00+08:00",
-    "syncedAt": "2026-11-21T08:10:34+00:00",
+    "syncedAt": "2026-11-22T07:54:47+00:00",
     "syncLog": [
       {
         "time": "2026-11-17T23:55:18+08:00",
@@ -594,6 +594,127 @@
       },
       {
         "time": "2026-11-21T08:10:34+00:00",
+        "llm": false,
+        "changes": [
+          {
+            "id": "acl-2027",
+            "src": "ccfddl",
+            "result": "conflict-kept-official",
+            "ours": null,
+            "ccfddl": "2027-01-04T23:59:59-12:00"
+          },
+          {
+            "id": "iros-2027",
+            "src": "ccfddl",
+            "result": "conflict-kept-official",
+            "ours": "2027-03-01T23:59:59-08:00",
+            "ccfddl": "2027-03-01T23:59:59-12:00"
+          }
+        ],
+        "raw": [
+          {
+            "id": "icaps-2027",
+            "src": "ccfddl",
+            "result": "same"
+          },
+          {
+            "id": "rss-2027",
+            "src": "ccfddl",
+            "result": "same"
+          },
+          {
+            "id": "acl-2027",
+            "src": "ccfddl",
+            "result": "conflict-kept-official",
+            "ours": null,
+            "ccfddl": "2027-01-04T23:59:59-12:00"
+          },
+          {
+            "id": "ijcai-2027",
+            "src": "ccfddl",
+            "result": "same"
+          },
+          {
+            "id": "icml-2027",
+            "src": "ccfddl",
+            "result": "same"
+          },
+          {
+            "id": "iros-2027",
+            "src": "ccfddl",
+            "result": "conflict-kept-official",
+            "ours": "2027-03-01T23:59:59-08:00",
+            "ccfddl": "2027-03-01T23:59:59-12:00"
+          },
+          {
+            "id": "acmmm-2027",
+            "src": "ccfddl",
+            "result": "skip",
+            "why": "no matching entry"
+          },
+          {
+            "id": "emnlp-2027",
+            "src": "ccfddl",
+            "result": "skip",
+            "why": "no matching entry"
+          },
+          {
+            "id": "corl-2027",
+            "src": "ccfddl",
+            "result": "skip",
+            "why": "no matching entry"
+          },
+          {
+            "id": "neurips-2027",
+            "src": "ccfddl",
+            "result": "skip",
+            "why": "no matching entry"
+          },
+          {
+            "id": "aaai-2028",
+            "src": "ccfddl",
+            "result": "skip",
+            "why": "no matching entry"
+          },
+          {
+            "id": "icra-2028",
+            "src": "ccfddl",
+            "result": "skip",
+            "why": "no matching entry"
+          },
+          {
+            "id": "iclr-2028",
+            "src": "ccfddl",
+            "result": "skip",
+            "why": "no matching entry"
+          },
+          {
+            "id": "aamas-2028",
+            "src": "ccfddl",
+            "result": "skip",
+            "why": "no matching entry"
+          },
+          {
+            "id": "cvpr-2028",
+            "src": "ccfddl",
+            "result": "skip",
+            "why": "no matching entry"
+          },
+          {
+            "id": "eccv-2028",
+            "src": "ccfddl",
+            "result": "skip",
+            "why": "no matching entry"
+          },
+          {
+            "id": "naacl-2027",
+            "src": "ccfddl",
+            "result": "same"
+          }
+        ]
+      },
+      {
+        "time": "2026-11-22T07:54:47+00:00",
         "llm": false,
         "changes": [
           {
